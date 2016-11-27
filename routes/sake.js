@@ -12,7 +12,6 @@ router.get('/get', function (req, res, next) {
     var nowTime=moment().format("YYYY-MM-DD HH:mm:ss");
     var beforeTime = moment(nowTime).add(-1,'days').format("YYYY-MM-DD HH:mm:ss");
     var query = `select * from sake_table where created_at between timestamp('${beforeTime}') and timestamp('${nowTime}');`
-    res.send(query);
     connection.query(query, function (err, result, field) {
         if (err) {
             console.error('error connecting: ' + err.stack);
@@ -35,7 +34,7 @@ router.post('/post', function (req, res) {
 ) values
 ('${sakeName}',${temperature},${alcoholPercentage});`;
 
-    connection.query(query1, function (err) {
+    connection.query(query, function (err) {
         if (err) {
             console.error('error connecting: ' + err.stack);
 
